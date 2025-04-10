@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Plataforma de Cursos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .curso {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 280px;
+    }
+
+    .curso h3 {
+      margin: 0 0 10px;
+      color: #007bff;
+    }
+
+    .curso p {
+      color: #555;
+    }
+
+    .curso button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px;
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .curso button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎓 Mini Plataforma de Cursos</h1>
+
+  <h2>Cursos Disponibles</h2>
+  <div class="contenedor" id="cursos-disponibles"></div>
+
+  <h2>Mis Cursos Inscritos</h2>
+  <div class="contenedor" id="cursos-inscritos"></div>
+
+  <script>
+    const cursos = [
+      {
+        id: 1,
+        nombre: "Introducción a HTML",
+        descripcion: "Aprende los fundamentos del lenguaje de marcado HTML."
+      },
+      {
+        id: 2,
+        nombre: "CSS para Principiantes",
+        descripcion: "Estiliza tus sitios con hojas de estilo en cascada."
+      },
+      {
+        id: 3,
+        nombre: "JavaScript Básico",
+        descripcion: "Comienza a programar con JS desde cero."
+      },
+      {
+        id: 4,
+        nombre: "Diseño Web Responsive",
+        descripcion: "Haz que tu sitio se vea bien en cualquier pantalla."
+      }
+    ];
+
+    const disponibles = document.getElementById('cursos-disponibles');
+    const inscritos = document.getElementById('cursos-inscritos');
+    const cursosInscritos = [];
+
+    function renderizarCursos() {
+      disponibles.innerHTML = "";
+      cursos.forEach(curso => {
+        const div = document.createElement('div');
+        div.classList.add('curso');
+        div.innerHTML = `
+          <h3>${curso.nombre}</h3>
+          <p>${curso.descripcion}</p>
+          <button onclick="inscribirse(${curso.id})">Inscribirse</button>
+        `;
+        disponibles.appendChild(div);
+      });
+    }
+
+    function inscribirse(id) {
+      const curso = cursos.find(c => c.id === id);
+      if (!cursosInscritos.includes(curso)) {
+        cursosInscritos.push(curso);
+        actualizarInscritos();
+      }
+    }
+
+    function actualizarInscritos() {
+      inscritos.innerHTML = "";
+      cursosInscritos.forEach(curso => {
+        const div = document.createElement('div');
+        div.classList.add('curso');
+        div.innerHTML = `
+          <h3>${curso.nombre}</h3>
+          <p>${curso.descripcion}</p>
+          <button disabled>Inscrito</button>
+        `;
+        inscritos.appendChild(div);
+      });
+    }
+
+    renderizarCursos();
+  </script>
+
+</body>
+</html>
